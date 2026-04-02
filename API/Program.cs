@@ -4,7 +4,7 @@ using Core.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container. Orders do not matter here, so feel free to add new services as needed.
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<StoreContext>(options =>
@@ -13,11 +13,14 @@ builder.Services.AddDbContext<StoreContext>(options =>
 });
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+
 
 //above this line is service configuration
 var app = builder.Build();
 
-//below this line is middleware
+//below this line is middleware; orders matter here, so be careful when adding new middleware
 
 // Configure the HTTP request pipeline.
 
