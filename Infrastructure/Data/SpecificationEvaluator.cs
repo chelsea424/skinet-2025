@@ -29,6 +29,11 @@ public class SpecificationEvaluator<T> where T : BaseEntity
             query = query.Distinct(); // Apply Distinct to remove duplicate results
         }
 
+        if (spec.IsPagingEnabled)
+        {
+            query = query.Skip(spec.Skip).Take(spec.Take); // Apply pagination to skip and take a certain number of results
+        }
+
         return query;
     }
 
@@ -60,6 +65,11 @@ public class SpecificationEvaluator<T> where T : BaseEntity
         if (spec.IsDistinct)
         {
             selectQuery = selectQuery?.Distinct(); // Apply Distinct to remove duplicate results
+        }
+
+        if (spec.IsPagingEnabled)
+        {
+            selectQuery = selectQuery?.Skip(spec.Skip).Take(spec.Take); // Apply pagination to skip and take a certain number of results
         }
 
         return selectQuery ?? query.Cast<TResult>(); // Cast the query to TResult if Select is not provided; this assumes that T and TResult are the same type
