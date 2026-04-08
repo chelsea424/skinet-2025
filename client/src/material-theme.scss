@@ -41,3 +41,7 @@ body {
   margin: 0;
   height: 100%;
 }
+
+.match-input-height {
+  height: var(--mat-field-container-height) !important;
+}
