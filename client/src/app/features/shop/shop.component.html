@@ -17,14 +17,13 @@
             class="relative flex items-center w-full max-w-md mx-4">
             <input 
                 type="search" 
-                class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg"
+                class="block w-full py-3 pl-4 pr-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="Search"
                 [(ngModel)]="shopParams.search"
                 name="search"
             />
-            <button mat-icon-button type="submit" 
-                class="absolute inset-y-0 right-8 top-2 flex items-center pl-3">
-                <mat-icon>search</mat-icon>
+            <button mat-icon-button type="submit" class="absolute inset-y-0 right-8 top-2 flex items-center pl-3">
+                <mat-icon class="text-gray-500">search</mat-icon>
             </button>
         </form>
 
