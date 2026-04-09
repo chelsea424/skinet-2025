@@ -45,3 +45,19 @@ body {
 .match-input-height {
   height: var(--mat-field-container-height) !important;
 }
+
+.snack-error{
+  @include mat.snack-bar-overrides((
+    button-color: white,
+    container-color: lightcoral,
+    supporting-text-color: white,
+  ));
+}
+
+.snack-success{
+  @include mat.snack-bar-overrides((
+    button-color: white,
+    container-color: lightgreen,
+    supporting-text-color: white,
+  ));
+}
