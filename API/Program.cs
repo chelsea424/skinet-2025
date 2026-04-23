@@ -4,6 +4,7 @@ using Core.Interfaces;
 using API.Middleware;
 using StackExchange.Redis;
 using Infrastructure.Services;
+using Core.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,16 +28,19 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
 });
 
 builder.Services.AddSingleton<ICartService, CartService>();
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<AppUser>().AddEntityFrameworkStores<StoreContext>();
 
 //above this line is service configuration
 var app = builder.Build();
 
 //below this line is middleware; orders matter here, so be careful when adding new middleware
 app.UseMiddleware<ExceptionMiddleware>();
-app.UseCors(policy => policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:4200","https://localhost:4200"));
+app.UseCors(policy => policy.AllowAnyMethod().AllowAnyHeader().AllowCredentials().WithOrigins("http://localhost:4200","https://localhost:4200"));
 
 // Configure the HTTP request pipeline.
 app.MapControllers();
+app.MapGroup("/api").MapIdentityApi<AppUser>(); //this is for the identity api endpoints, which are not controllers but minimal APIs, so they need to be mapped separately
 
 try
 {
